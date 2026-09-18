@@ -1,0 +1,367 @@
+/* ============================
+   CSS VARIABLES (Light / Dark)
+============================ */
+:root {
+  --bg: #f5f6fa;
+  --card-bg: #ffffff;
+  --text-primary: #2d3436;
+  --text-secondary: #636e72;
+  --border-color: #e4e6ea;
+  --primary: #4a90d9;
+  --primary-hover: #3b7cc4;
+  --danger: #e74c3c;
+  --danger-hover: #c0392b;
+  --warning-bg: #fdecea;
+  --warning-text: #c0392b;
+  --badge-bg: #eef1f5;
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  --food-color: #2ecc71;
+  --transport-color: #4a90d9;
+  --fun-color: #f39c12;
+}
+
+[data-theme="dark"] {
+  --bg: #1a1d21;
+  --card-bg: #24272c;
+  --text-primary: #f1f2f6;
+  --text-secondary: #a4a9b0;
+  --border-color: #34383e;
+  --primary: #5c9ce6;
+  --primary-hover: #4a8ad6;
+  --danger: #e74c3c;
+  --danger-hover: #ff6b5b;
+  --warning-bg: #3a2323;
+  --warning-text: #ff8a80;
+  --badge-bg: #2f333a;
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+/* ============================
+   RESET & BASE
+============================ */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg);
+  color: var(--text-primary);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 16px 60px;
+}
+
+/* ============================
+   HEADER
+============================ */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.app-header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 0;
+}
+
+.theme-toggle {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle:hover {
+  border-color: var(--primary);
+}
+
+/* ============================
+   CARDS
+============================ */
+.card {
+  background-color: var(--card-bg);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.card h2 {
+  margin: 0 0 16px;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+/* ============================
+   BALANCE CARD
+============================ */
+.balance-card {
+  text-align: center;
+}
+
+.balance-label {
+  margin: 0;
+  letter-spacing: 1px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.balance-amount {
+  margin: 8px 0 16px;
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.balance-amount.over-limit {
+  color: var(--danger);
+}
+
+.limit-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.limit-row label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.limit-row input {
+  max-width: 220px;
+  text-align: center;
+}
+
+.limit-warning {
+  margin: 14px auto 0;
+  max-width: 420px;
+  background-color: var(--warning-bg);
+  color: var(--warning-text);
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* ============================
+   FORM
+============================ */
+.field {
+  margin-bottom: 16px;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.field input:focus,
+.field select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.field input.invalid,
+.field select.invalid {
+  border-color: var(--danger);
+}
+
+.error-text {
+  display: block;
+  min-height: 18px;
+  color: var(--danger);
+  font-size: 0.8rem;
+  margin-top: 4px;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 14px;
+  background-color: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+}
+
+/* ============================
+   GRID (transactions + chart)
+============================ */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 720px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.card-header-row h2 {
+  margin: 0;
+}
+
+.sort-select {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  font-size: 0.85rem;
+}
+
+/* ============================
+   TRANSACTION LIST
+============================ */
+.transaction-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.transaction-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 4px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.transaction-item:last-child {
+  border-bottom: none;
+}
+
+.tx-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.tx-name {
+  font-weight: 700;
+  font-size: 1rem;
+  margin: 0 0 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tx-amount {
+  color: var(--primary);
+  font-weight: 700;
+  margin: 0 0 6px;
+}
+
+.tx-category-badge {
+  display: inline-block;
+  background-color: var(--badge-bg);
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.delete-btn {
+  background-color: var(--danger);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-left: 12px;
+  flex-shrink: 0;
+}
+
+.delete-btn:hover {
+  background-color: var(--danger-hover);
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: 40px 10px;
+  font-size: 0.95rem;
+}
+
+/* ============================
+   CHART CARD
+============================ */
+.chart-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-wrapper {
+  position: relative;
+  flex: 1;
+  min-height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chart-empty {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin: 0;
+}
