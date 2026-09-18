@@ -284,6 +284,7 @@
     if (labels.length === 0) {
       chartCanvas.style.display = "none";
       chartEmptyEl.style.display = "block";
+      chartEmptyEl.textContent = "No data to display yet.";
       if (spendingChart) {
         spendingChart.destroy();
         spendingChart = null;
@@ -291,40 +292,56 @@
       return;
     }
 
-    chartCanvas.style.display = "block";
-    chartEmptyEl.style.display = "none";
-
-    if (spendingChart) {
-      spendingChart.data.labels = labels;
-      spendingChart.data.datasets[0].data = data;
-      spendingChart.data.datasets[0].backgroundColor = colors;
-      spendingChart.update();
+    // Guard: Chart.js library failed to load (e.g. CDN blocked)
+    if (typeof Chart === "undefined") {
+      chartCanvas.style.display = "none";
+      chartEmptyEl.style.display = "block";
+      chartEmptyEl.textContent =
+        "Chart library failed to load. Check your internet connection or disable ad-blocker, then refresh.";
       return;
     }
 
-    spendingChart = new Chart(chartCanvas, {
-      type: "pie",
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            data: data,
-            backgroundColor: colors,
-            borderColor: "#ffffff",
-            borderWidth: 2,
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: true,
-        plugins: {
-          legend: {
-            position: "bottom",
+    chartCanvas.style.display = "block";
+    chartEmptyEl.style.display = "none";
+
+    try {
+      if (spendingChart) {
+        spendingChart.data.labels = labels;
+        spendingChart.data.datasets[0].data = data;
+        spendingChart.data.datasets[0].backgroundColor = colors;
+        spendingChart.update();
+        return;
+      }
+
+      spendingChart = new Chart(chartCanvas, {
+        type: "pie",
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              data: data,
+              backgroundColor: colors,
+              borderColor: "#ffffff",
+              borderWidth: 2,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          plugins: {
+            legend: {
+              position: "bottom",
+            },
           },
         },
-      },
-    });
+      });
+    } catch (err) {
+      console.error("Failed to render chart:", err);
+      chartCanvas.style.display = "none";
+      chartEmptyEl.style.display = "block";
+      chartEmptyEl.textContent = "Something went wrong rendering the chart.";
+    }
   }
 
   /* ---------- Master render ---------- */
